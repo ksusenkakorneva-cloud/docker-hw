@@ -24,6 +24,28 @@ case "$1" in
     docker run --rm -v "$(pwd)/data:/data" hw-reporter
     ;;
 
+ structure)
+  echo "Структура проекта:"
+  find . -maxdepth 3 -type f \
+    -not -path "./.git/*" \
+    -not -path "./data/*" \
+    -not -path "./local_data/*" \
+    | sort
+  ;;
+
+  clear_data)
+    rm -f data/*.csv data/*.html
+    echo "Папка data очищена от csv и html файлов"
+    ;;
+
+  inside_generator)
+    docker run --rm -it -v "$(pwd)/data:/data" hw-generator sh -c "echo 'Содержимое /data внутри generator:' && ls -la /data"
+    ;;
+
+  inside_reporter)
+    docker run --rm -it -v "$(pwd)/data:/data" hw-reporter sh -c "echo 'Содержимое /data внутри reporter:' && ls -la /data"
+    ;;
+
   *)
     echo "Unknown command: $1"
     echo "Available commands:"
@@ -32,5 +54,9 @@ case "$1" in
     echo "  create_local_data"
     echo "  build_reporter"
     echo "  run_reporter"
+    echo "  structure"
+    echo "  clear_data"
+    echo "  inside_generator"
+    echo "  inside_reporter"
     ;;
 esac
