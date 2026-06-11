@@ -10,10 +10,16 @@ case "$1" in
     docker run --rm -v "$(pwd)/data:/data" hw-generator
     ;;
 
+  create_local_data)
+    mkdir -p local_data
+    python3 generator/generate.py local_data
+    ;;
+
   *)
     echo "Unknown command: $1"
     echo "Available commands:"
     echo "  build_generator"
     echo "  run_generator"
+    echo "  create_local_data"
     ;;
 esac
