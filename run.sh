@@ -47,7 +47,7 @@ case "$1" in
     ;;
 
   report_server)
-    docker run --rm -p 8080:80 -v "$(pwd)/data:/usr/share/nginx/html:ro" nginx
+    docker run --rm -p 8080:80 -v "$(pwd)/data/report.html:/usr/share/nginx/html/index.html:ro" nginx
     ;; 
 
   *)
