@@ -46,6 +46,10 @@ case "$1" in
     docker run --rm -it -v "$(pwd)/data:/data" hw-reporter sh -c "echo 'Содержимое /data внутри reporter:' && ls -la /data"
     ;;
 
+  report_server)
+    docker run --rm -p 8080:80 -v "$(pwd)/data:/usr/share/nginx/html:ro" nginx
+    ;; 
+
   *)
     echo "Unknown command: $1"
     echo "Available commands:"
@@ -58,5 +62,6 @@ case "$1" in
     echo "  clear_data"
     echo "  inside_generator"
     echo "  inside_reporter"
+    echo "  report_server"
     ;;
 esac
